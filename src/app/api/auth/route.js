@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import cors, { runMiddleware } from './cors-middleware';
 
 const SECRET_KEY = 'Srushti$123';
 
 export async function POST(request) {
+    await runMiddleware(request, NextResponse, cors);
     try {
         const body = await request.json();
         const { email, password } = body;
@@ -27,7 +29,7 @@ export async function POST(request) {
             name: 'authtoken',
             value: token,
             // httpOnly: true,
-            withCredentials: true,
+            // withCredentials: true,
             secure: process.env.NODE_ENV === 'production',
             maxAge: 60 * 60 * 24 * 3,
             path: '/',
