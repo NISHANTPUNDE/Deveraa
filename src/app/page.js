@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import LeftAside from '@/components/leftAside';
-import RightAside from '@/components/rightAside';
+import LeftAside from '@/components/LeftAside';
+import RightAside from '@/components/RightAside';
 import { GiFlatStar } from "react-icons/gi";
 import Link from 'next/link';
 import { NEXT_PUBLIC_BASE_URL } from '@/app/lib/Constant';

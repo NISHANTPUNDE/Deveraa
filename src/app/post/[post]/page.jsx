@@ -1,6 +1,6 @@
 import React from "react";
-import RightAside from "@/components/rightAside";
-import LeftAside from "@/components/leftAside";
+import RightAside from "@/components/RightAside";
+import LeftAside from "@/components/LeftAside";
 import Link from "next/link";
 import ContentImage from "@/components/ContentImage";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";

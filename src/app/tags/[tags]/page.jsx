@@ -1,5 +1,5 @@
-import RightAside from "@/components/rightAside";
-import LeftAside from "@/components/leftAside";
+import RightAside from "@/components/RightAside";
+import LeftAside from "@/components/LeftAside";
 import Link from "next/link";
 import Image from "next/image";
 import { GiFlatStar } from "react-icons/gi";
