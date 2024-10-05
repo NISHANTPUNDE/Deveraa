@@ -15,7 +15,7 @@ const DeleteBlog = () => {
   async function getPosts() {
     try {
       console.log(searchTerm);
-      const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${searchTerm}`);
+      const res = await fetch(`/api/post/${searchTerm}`);
       if (!res.ok) {
         throw new Error(`Failed to fetch: ${res.statusText}`);
       }

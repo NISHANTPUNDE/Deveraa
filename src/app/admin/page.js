@@ -18,7 +18,7 @@ const Page = () => {
             const authToken = cookies['authtoken'];
             if (authToken) {
 
-                const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/auth/checkauth`, {
+                const response = await fetch(`/api/auth/checkauth`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const Page = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/auth`, {
+        const response = await fetch(`/api/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

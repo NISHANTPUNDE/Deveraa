@@ -50,7 +50,7 @@ const WriteBlog = () => {
     data.append("inputfields", JSON.stringify(state));
     data.append("contentBlocks", JSON.stringify(contentBlocks));
 
-    const result = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/write`, {
+    const result = await fetch(`/api/write`, {
       method: "POST",
       body: data,
     });
