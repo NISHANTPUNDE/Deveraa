@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import cors, { runMiddleware } from './cors-middleware';
+// import cors, { runMiddleware } from './cors-middleware';
 
 const SECRET_KEY = 'Srushti$123';
 
 export async function POST(request) {
-    await runMiddleware(request, NextResponse, cors);
+    // await runMiddleware(request, NextResponse, cors);
     try {
         const body = await request.json();
         const { email, password } = body;
@@ -42,3 +42,6 @@ export async function POST(request) {
         return NextResponse.json({ message: 'Something went wrong', error }, { status: 500 });
     }
 }
+
+
+
