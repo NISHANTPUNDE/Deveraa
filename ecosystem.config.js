@@ -13,7 +13,7 @@ module.exports = {
             env: {
                 NODE_ENV: 'production',
                 PORT: 3000,
-                NEXT_PUBLIC_BASE_URL: "http://localhost:3000",
+                NEXT_PUBLIC_BASE_URL: "http://167.71.235.216",
                 MONGO_URI: "mongodb://adminUser:aDiru%40141020a@167.71.235.216:27017/learnwithme?authSource=admin"
             },
             env_production: {
