@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Userpost from "@/models/blogs";
-
+export const dynamic = 'force-dynamic';
 export async function GET(req, { params }) {
     try {
         const { tags } = params;

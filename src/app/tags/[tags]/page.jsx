@@ -5,15 +5,18 @@ import Image from "next/image";
 import { GiFlatStar } from "react-icons/gi";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 
+export const dynamic = "force-dynamic";
+
 const Tags = async ({ params }) => {
   console.log(params.tags);
   async function getPosts() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${params.tags}`);
+    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${params.tags}`, {
+      cache: "no-store",
+    });
     const data = await res.json();
     return data.blogs;
   }
   const datapost = await getPosts();
-  console.log(datapost);
 
   return (
     <div className="min-h-screen bg-gray-100">

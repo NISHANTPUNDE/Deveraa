@@ -14,7 +14,6 @@ const DeleteBlog = () => {
   };
   async function getPosts() {
     try {
-      console.log(searchTerm);
       const res = await fetch(`/api/post/${searchTerm}`);
       if (!res.ok) {
         throw new Error(`Failed to fetch: ${res.statusText}`);
@@ -22,9 +21,8 @@ const DeleteBlog = () => {
       const data = await res.json();
       setDatapost(data.post || []);
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      alert("error fetching");
     }
-    console.log(datapost);
   }
 
   const handleClick = async () => {
@@ -54,7 +52,7 @@ const DeleteBlog = () => {
           <div className="flex gap-4">
             <input
               type="text"
-              placeholder="Search by title or slug"
+              placeholder="Search by slug"
               value={searchTerm}
               onChange={handleSearchChange}
               className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900"

@@ -5,18 +5,25 @@ import Link from "next/link";
 import ContentImage from "@/components/ContentImage";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 import { LuClock } from "react-icons/lu";
+import IframeTag from "@/components/YoutubeLink";
+
+export const dynamic = "force-dynamic";
 
 const BlogDetail = async ({ params }) => {
   let tags;
   async function getPosts() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${params.post}`);
+    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${params.post}`, {
+      cache: "no-store",
+    });
     const data = await res.json();
     tags = data.post.tag;
     return data.post;
   }
 
   async function getbyTags() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${tags}`);
+    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${tags}`, {
+      cache: "no-store",
+    });
     const data = await res.json();
     return data;
   }
@@ -58,7 +65,7 @@ const BlogDetail = async ({ params }) => {
               <div className="flex float-right">
                 {prevSlug && (
                   <Link
-                    href={`/post/${prevSlug}`} // Navigate to the previous post using the slug
+                    href={`/post/${prevSlug}`}
                     className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <svg
@@ -162,12 +169,7 @@ const BlogDetail = async ({ params }) => {
 
               {datapost?.videourl && (
                 <section className="py-4">
-                  <iframe
-                    src={datapost?.videourl}
-                    className="w-full h-96"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+                  <IframeTag videourl={datapost.videourl} />
                 </section>
               )}
               {datapost?.fileurl && (
