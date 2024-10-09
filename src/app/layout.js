@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "learn with me",
+  title: "Deveraa",
   description: "A blog about learning and teaching",
 };
 

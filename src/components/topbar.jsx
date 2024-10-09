@@ -65,7 +65,7 @@ const Topbar = () => {
     <>
       <header className="flex items-center justify-between md:justify-normal gap-5 md:gap-14 shadow-md py-4 px-4">
         <label className="font-bold uppercase text-xl md:text-2xl text-red-400">
-          <Link href={"/"}>learn with developers</Link>
+          <Link href={"/"}>Deveraa</Link>
         </label>
 
         <div className="md:hidden">
