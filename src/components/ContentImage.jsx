@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 const ContentImage = ({ src, alt }) => {
   return (
     <Image
