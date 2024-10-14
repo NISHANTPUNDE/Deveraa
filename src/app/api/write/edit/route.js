@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
 import Userpost from '@/models/blogs';
+import { exec } from 'child_process';
+
+export const dynamic = 'force-dynamic';
 
 export async function PUT(req) {
     try {
@@ -67,6 +70,14 @@ export async function PUT(req) {
 
         await existingPost.save();
         console.log('Blog post updated successfully');
+        exec('pm2 restart deveraa', (err, stdout, stderr) => {
+            if (err) {
+                console.error(`Error restarting app: ${stderr}`);
+                return;
+            }
+            console.log(`App restarted: ${stdout}`);
+        });
+
 
         return NextResponse.json({
             message: 'Blog post updated successfully',

@@ -1,18 +1,16 @@
 "use client";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
+import { useEffect, useState } from "react";
 import AdminSidePanel from "@/components/AdminSidePanel";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 
 const WriteBlog = () => {
-  const { toast } = useToast();
   const [state, setState] = useState({});
   const [imgFile, setImgFile] = useState(null);
   const [zipFile, setZipFile] = useState(null);
   const [contentBlocks, setContentBlocks] = useState([]);
-
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [message, setMessage] = useState(""); // State for success/error message
+  const [isSuccess, setIsSuccess] = useState(false); // State for success flag
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -38,8 +36,16 @@ const WriteBlog = () => {
     updatedBlocks[index][name] = value;
     setContentBlocks(updatedBlocks);
   };
-  console.log(contentBlocks);
-  console.log(state);
+
+  useEffect(() => {
+    if (message === "Your blog post has been created successfully.") {
+      const timer = setTimeout(() => {
+        setMessage("");
+        window.location.reload();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,22 +62,24 @@ const WriteBlog = () => {
     });
 
     if (result.ok) {
-      toast({
-        description: "Your blog post has been created.",
-      });
+      setMessage("Your blog post has been created successfully.");
+      setIsSuccess(true); // Set success state to true
+      setState({});
+      setContentBlocks([]);
+      setImgFile(null);
+      setZipFile(null);
     } else {
       const errorData = await result.json();
-      toast({
-        variant: "destructive",
-        title: errorData.error || "Error",
-        description: errorData.details || "Failed to submit the blog post.",
-      });
+      setMessage(
+        errorData.error || "Failed to submit the blog post. Please try again."
+      );
+      setIsSuccess(false); // Set success state to false
     }
   };
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 md:flex md:flex-row flex-col justify-start md:py-8 py-2 ">
+      <div className="min-h-screen bg-gray-100 md:flex md:flex-row flex-col justify-start md:py-8 py-2">
         <AdminSidePanel />
         <main className="bg-white p-6 shadow-md w-full max-w-3xl rounded-lg">
           <form onSubmit={handleSubmit}>
@@ -239,6 +247,17 @@ const WriteBlog = () => {
             >
               Submit
             </button>
+            {message && (
+              <div
+                className={`mb-4 p-4 rounded-lg ${
+                  isSuccess
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {message}
+              </div>
+            )}
           </form>
         </main>
       </div>

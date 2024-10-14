@@ -1,17 +1,13 @@
-"use client";
-
 import Image from "next/image";
-
-export const dynamic = "force-dynamic";
 
 const ContentImage = ({ src, alt }) => {
   return (
     <Image
       src={src}
       alt={alt}
-      className="w-full max-w-4xl h-auto rounded-lg py-2"
-      width={400}
-      height={400}
+      className="w-full max-w-4xl h-full rounded-lg py-2 object-fill"
+      width={200}
+      height={200}
     />
   );
 };

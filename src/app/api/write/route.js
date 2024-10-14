@@ -3,6 +3,9 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 import Userpost from '@/models/blogs';
 
+import { exec } from 'child_process';
+
+
 export async function POST(req) {
     try {
         const data = await req.formData();
@@ -64,6 +67,14 @@ export async function POST(req) {
 
         await newBlog.save();
         console.log('Blog post created successfully');
+        exec('pm2 restart deveraa', (err, stdout, stderr) => {
+            if (err) {
+                console.error(`Error restarting app: ${stderr}`);
+                return;
+            }
+            console.log(`App restarted: ${stdout}`);
+        });
+
 
         return NextResponse.json({
             message: 'Blog post created successfully',

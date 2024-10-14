@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'images.pexels.com', 'upload.wikimedia.org'],
+        domains: ['localhost', '127.0.0.1', 'images.pexels.com', 'upload.wikimedia.org', 'learnwithdevelopers.me'],
+        unoptimized: true,
     },
     eslint: {
-        // This disables ESLint during the production build process
         ignoreDuringBuilds: true,
     },
     async headers() {

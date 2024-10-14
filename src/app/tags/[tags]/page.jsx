@@ -4,17 +4,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { GiFlatStar } from "react-icons/gi";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
+import ContentImage from "@/components/ContentImage";
 
 export const dynamic = "force-dynamic";
 
 const Tags = async ({ params }) => {
-  console.log(params.tags);
   async function getPosts() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${params.tags}`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return data.blogs;
+    try {
+      const res = await fetch(
+        `${NEXT_PUBLIC_BASE_URL}/api/tags/${params.tags}`,
+        {
+          cache: "no-store",
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        return data.blogs;
+      }
+    } catch (error) {
+      console.error("Error fetching posts", error);
+      return [];
+    }
   }
   const datapost = await getPosts();
 
@@ -27,44 +37,48 @@ const Tags = async ({ params }) => {
           data-ad-slot="5151259131"
         />
 
-        <main className="bg-white p-4 md:col-span-2 shadow-md">
+        <main className="bg-white p-6 md:col-span-2 shadow-lg rounded-lg">
           <article>
-            <h1 className="text-4xl font-bold mb-4">Posts By Tags</h1>
+            <h1 className="text-4xl font-extrabold mb-6 text-gray-700">
+              Post By Tags
+            </h1>
             <div>
-              {datapost.map((item) => (
-                <Link href={`/post/${item.slug}`} key={item.id}>
-                  <div
-                    key={item.id}
-                    className="mb-12 pb-2 border-b-4 border-sky-500"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="flex space-x-2"></div>
-                        <h2 className="text-xl font-bold">{item.title}</h2>
-                        <div>
-                          <h3 className=" text-lg text-gray-500 ">
+              {datapost.length > 0 ? (
+                datapost.map((item) => (
+                  <Link href={`/post/${item.slug}`} key={item.id}>
+                    <div
+                      key={item.id}
+                      className="mb-12 pb-6 border-b-2 border-sky-400 hover:shadow-lg transition-shadow duration-300 rounded-lg pl-2"
+                    >
+                      <div className="flex items-center justify-between gap-6">
+                        <div className="w-2/3">
+                          <h2 className="text-2xl capitalize font-semibold text-gray-700 hover:text-sky-500 transition-colors duration-200">
+                            {item.title}
+                          </h2>
+                          <h3 className="text-md capitalize line-clamp-3 text-gray-600 mt-2 leading-relaxed">
                             {item.description}
                           </h3>
-                        </div>
-                        <div>
-                          <div className="flex items-center">
-                            <GiFlatStar color="yellow" />
-                            <span>{item.date}</span>
+                          <div className="flex gap-2 items-center mt-3">
+                            <GiFlatStar color="yellow" className="text-xl" />
+                            <span className="text-sm text-gray-500">
+                              {item.readingtime}
+                            </span>
                           </div>
                         </div>
-                      </div>
-                      <div>
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          width={200}
-                          height={200}
-                        />
+                        <div className="w-1/3 flex-shrink-0">
+                          <ContentImage
+                            src={item.image}
+                            alt={item.title}
+                            className="object-cover w-full h-36 rounded-lg shadow-md"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))
+              ) : (
+                <p className="text-center text-gray-500">No posts available</p>
+              )}
             </div>
           </article>
         </main>

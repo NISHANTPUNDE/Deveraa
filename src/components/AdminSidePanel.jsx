@@ -10,7 +10,7 @@ const AdminSidePanel = () => {
       <ul>
         <li>
           <button
-            className="w-full h-12 bg-zinc-500 px-6 text-lg text-zinc-100  transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-zinc-400"
+            className="w-full h-12 bg-blue-700 px-6 text-lg text-zinc-100  transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-blue-400"
             onClick={() => router.push("/admin/write")}
           >
             Create
@@ -18,8 +18,8 @@ const AdminSidePanel = () => {
         </li>
         <li>
           <button
-            className="w-full my-4 h-12 bg-zinc-500 px-6 text-lg text-zinc-100 
-        transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-zinc-400"
+            className="w-full my-4 h-12 bg-blue-700 px-6 text-lg text-zinc-100 
+        transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-blue-400"
             onClick={() => router.push("/admin/write/edit")}
           >
             Update
@@ -27,7 +27,7 @@ const AdminSidePanel = () => {
         </li>
         <li>
           <button
-            className="w-full h-12 bg-zinc-500 px-6 text-lg text-zinc-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-zinc-400"
+            className="w-full h-12 bg-blue-700 px-6 text-lg text-zinc-100 transition-colors duration-150  rounded-lg focus:shadow-outline hover:bg-blue-400"
             onClick={() => router.push("/admin/write/delete")}
           >
             Delete

@@ -55,6 +55,15 @@ svg {
   .text-balance {
     text-wrap: balance;
   }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 }
 
 @layer base {

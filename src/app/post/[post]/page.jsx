@@ -9,23 +9,65 @@ import IframeTag from "@/components/YoutubeLink";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: {
+    default: `learnwithdeveloper`,
+  },
+  description: `A blog about learning and teaching`,
+  facebook: {
+    siteName: "learnwithdeveloper",
+    url: "https://learnwithdeveloper.com",
+    type: "website",
+    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
+  },
+  twitter: {
+    handle: "@learnwithdeveloper",
+    site: "@learnwithdeveloper",
+    cardType: "summary_large_image",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://learnwithdeveloper.com",
+    siteName: "learnwithdeveloper",
+    title: "learnwithdeveloper",
+    description: "A blog about learning and teaching",
+    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
+  },
+};
+
 const BlogDetail = async ({ params }) => {
   let tags;
   async function getPosts() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${params.post}`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    tags = data.post.tag;
-    return data.post;
+    try {
+      const res = await fetch(
+        `${NEXT_PUBLIC_BASE_URL}/api/post/${params.post}`,
+        {
+          cache: "no-store",
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        tags = data.post.tag;
+        return data.post;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function getbyTags() {
-    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${tags}`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return data;
+    try {
+      const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/tags/${tags}`, {
+        cache: "no-store",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const datapost = await getPosts();
@@ -51,22 +93,22 @@ const BlogDetail = async ({ params }) => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
+    <div className="min-h-screen bg-gray-100 mt-[80px]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:p-4">
         <LeftAside
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
           data-ad-slot="4816179228"
         />
 
-        <main className="bg-white p-4 md:col-span-2 shadow-md">
+        <main className="bg-white p-4 md:col-span-2 shadow-md rounded-2xl">
           <article>
             <div className="min-h-screen bg-white">
               <div className="flex float-right">
                 {prevSlug && (
                   <Link
-                    href={`/post/${prevSlug}`}
-                    className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    href={`/post/${prevSlug}`} // Navigate to the previous post using the slug
+                    className="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-white bg-blue-600 border border-gray-300 rounded-lg hover:bg-blue-900 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     <svg
                       className="w-3.5 h-3.5 me-2 rtl:rotate-180"
@@ -90,7 +132,7 @@ const BlogDetail = async ({ params }) => {
                 {nextSlug && (
                   <Link
                     href={`/post/${nextSlug}`} // Navigate to the next post using the slug
-                    className="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-blue-600 border border-gray-300 rounded-lg hover:bg-blue-900 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   >
                     Next
                     <svg
@@ -113,17 +155,21 @@ const BlogDetail = async ({ params }) => {
               </div>
 
               <header className="py-8 ">
-                <h1 className="text-4xl font-bold">{datapost.title}</h1>
-                <p className="mt-2 text-lg border-l-4 border-gray-500 pl-2 text-gray-500">
+                <h3 className="text-2xl font-bold font-serif">
+                  {datapost.title}
+                </h3>
+
+                <p className="text-m font-serif text-gray-700 text-wrap ">
                   {datapost?.description}
                 </p>
-                <div className=" items-center mt-4 space-x-3">
-                  <div className="flex-col">
-                    <span className="text-sm text-gray-500">
-                      {datapost.date}
+
+                <div className="flex items-center mt-4 space-x-3 ">
+                  <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0">
+                    <span className="text-sm text-gray-600 font-medium bg-gray-100 px-3 py-1 rounded-lg ">
+                      📅 {datapost?.date}
                     </span>
-                    <span className="text-sm text-gray-500 ml-4">
-                      {datapost?.readingtime}
+                    <span className="text-sm text-gray-600 font-medium bg-gray-100 px-3 py-1 rounded-lg md:ml-4">
+                      ⏱ {datapost?.readingtime} min read
                     </span>
                   </div>
                 </div>
@@ -133,11 +179,12 @@ const BlogDetail = async ({ params }) => {
                   if (item.type === "content") {
                     return (
                       <>
-                        <h1 className="text-3xl font-bold mb-4">
+                        <h1 className="text-xl font-bold font-serif">
                           {item?.heading}
                         </h1>
-                        <p className="text-lg mb-4">
-                          <pre className="text-lg text-wrap font-sans">
+
+                        <p className=" text-m font-serif text-gray-700">
+                          <pre className="text-m font-serif text-gray-700 text-wrap">
                             {item?.content}
                           </pre>
                         </p>
@@ -147,8 +194,11 @@ const BlogDetail = async ({ params }) => {
                   if (item.type === "code") {
                     return (
                       <>
-                        <code className="block my-2  bg-gray-100 p-4 rounded-lg">
-                          <pre className="overflow-auto max-h-[70vh]">
+                        <code className="block my-2 py-4  rounded-lg">
+                          <pre
+                            className="py-5 mt-4 text-s font-serif border-l-4 pl-4 text-gray-700 bg-gray-100 shadow-lg rounded-lg overflow-auto max-h-[70vh]"
+                            style={{ borderColor: "#007FFF" }}
+                          >
                             {item?.code}
                           </pre>
                         </code>
@@ -157,11 +207,14 @@ const BlogDetail = async ({ params }) => {
                   }
                   if (item.type === "image") {
                     return (
-                      <ContentImage
-                        key={item.id}
-                        src={datapost.image}
-                        alt="image"
-                      />
+                      <div className="w-full max-w-4xl h-[400px] rounded-lg py-2 mb-2">
+                        <ContentImage
+                          key={item.id}
+                          src={datapost.image}
+                          alt="image"
+                          className="w-full h-auto max-w-2xl mx-auto rounded-lg shadow-lg object-cover"
+                        />
+                      </div>
                     );
                   }
                 })}
@@ -169,17 +222,22 @@ const BlogDetail = async ({ params }) => {
 
               {datapost?.videourl && (
                 <section className="py-4">
-                  <IframeTag videourl={datapost.videourl} />
+                  <iframe
+                    src={datapost?.videourl}
+                    className="w-full h-96"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 </section>
               )}
               {datapost?.fileurl && (
                 <section className="my-4">
                   <a
-                    className="border rounded-md bg-slate-600 p-4 font-semibold text-white text-xl"
+                    className="inline-block border border-transparent rounded-md bg-slate-600 p-2 font-semibold text-white text-m hover:bg-slate-700 hover:shadow-lg transition-colors duration-300 ease-in-out"
                     href={datapost.fileurl}
                     target="_blank"
                   >
-                    Download File {datapost.fileurl.slice(14)}
+                    Download File
                   </a>
                 </section>
               )}
@@ -188,41 +246,45 @@ const BlogDetail = async ({ params }) => {
             {/* ////////////////////////// */}
             {/* //////////////////////// */}
             <div>
-              <div className="mt-8">
-                <h1 className="text-3xl mb-2 font-bold">Related Posts</h1>
-                {tagspost?.map((item) => (
-                  <Link href={`/post/${item?.slug}`} key={item?.id}>
-                    <div
-                      key={item.id}
-                      className="my-4 p-2 border bottom-1 border-gray-400 rounded-md"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="flex space-x-2">
-                            <span className="text-sm text-black"></span>
-                          </div>
-                          <h2 className="text-xl font-bold line line-clamp-1">
-                            {item.title}
-                          </h2>
+              {tagspost.length > 0 && (
+                <div className="mt-8">
+                  <h1 className="text-2xl mb-4 font-bold text-gray-800 font-serif">
+                    Related Posts
+                  </h1>
+                  {tagspost?.map((item) => (
+                    <Link href={`/post/${item?.slug}`} key={item?.id}>
+                      <div
+                        key={item.id}
+                        className="my-4 p-4 border border-gray-300 rounded-lg transition-shadow shadow-lg hover:bg-gray-50"
+                      >
+                        <div className="flex items-center justify-between">
                           <div>
-                            <h3 className=" text-lg text-gray-500 line-clamp-3 leadind-2">
-                              {item?.description}
-                            </h3>
-                          </div>
-                          <div>
-                            <div className="flex gap-2 items-center">
-                              <LuClock color="grey" />
-                              <span className="text-md text-gray-600">
+                            <div className="flex space-x-2 mb-2">
+                              <span className="text-sm text-blue-600 font-medium font-roboto">
+                                {item?.category}
+                              </span>
+                            </div>
+                            <h2 className="text-2xl font-bold text-gray-800 line-clamp-1 font-roboto">
+                              {item.title}
+                            </h2>
+                            <div className="mt-1">
+                              <h3 className="text-lg text-gray-600 line-clamp-3 leading-relaxed font-roboto">
+                                {item?.description}
+                              </h3>
+                            </div>
+                            <div className="mt-3 flex items-center gap-2 text-gray-500">
+                              <LuClock color="gray" />
+                              <span className="text-sm font-roboto">
                                 {item?.readingtime}
                               </span>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </article>
         </main>
