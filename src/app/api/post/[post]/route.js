@@ -2,12 +2,12 @@ import Userpost from '@/models/blogs';
 import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 export async function GET(req, { params }) {
-    console.log(params);
     const { post } = params;
-    console.log(post);
-
     try {
-        const result = await Userpost.findOne({ slug: post });
+        const result = await Userpost.findOne({
+            $or: [{ title: post },
+            { slug: post }]
+        }).collation({ locale: 'en', strength: 2 });;
 
         if (!result) {
             return NextResponse.json({ message: "Post not found" }, { status: 404 });

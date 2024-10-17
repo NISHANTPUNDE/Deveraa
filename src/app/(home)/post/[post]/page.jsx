@@ -6,35 +6,51 @@ import ContentImage from "@/components/ContentImage";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 import { LuClock } from "react-icons/lu";
 import IframeTag from "@/components/YoutubeLink";
+import { redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: {
-    default: `learnwithdeveloper`,
-  },
-  description: `A blog about learning and teaching`,
-  facebook: {
-    siteName: "learnwithdeveloper",
-    url: "https://learnwithdeveloper.com",
-    type: "website",
-    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
-  },
-  twitter: {
-    handle: "@learnwithdeveloper",
-    site: "@learnwithdeveloper",
-    cardType: "summary_large_image",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://learnwithdeveloper.com",
-    siteName: "learnwithdeveloper",
-    title: "learnwithdeveloper",
-    description: "A blog about learning and teaching",
-    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
-  },
-};
+export async function generateMetadata({ params }) {
+  try {
+    const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${params.post}`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch post metadata");
+    }
+    const post = await res.json();
+
+    const title = post.post.title || "Default Title";
+    const description = post.post.description || "Default Description";
+    const image = `${NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`;
+    console.log(image);
+
+    return {
+      title: `${title} | Deveraa`,
+      description: description,
+      openGraph: {
+        title: `${title} | Deveraa`,
+        description: description,
+        images: [
+          {
+            url: image,
+            alt: title,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: title,
+        description: description,
+        images: [image],
+      },
+    };
+  } catch (error) {
+    console.error("Error generating metadata: ", error);
+    return {
+      title: "Error",
+      description: "There was an error fetching the metadata.",
+    };
+  }
+}
 
 const BlogDetail = async ({ params }) => {
   let tags;
@@ -52,7 +68,7 @@ const BlogDetail = async ({ params }) => {
         return data.post;
       }
     } catch (error) {
-      console.log(error);
+      return null;
     }
   }
 
@@ -72,6 +88,10 @@ const BlogDetail = async ({ params }) => {
 
   const datapost = await getPosts();
   const gettagpost = await getbyTags();
+
+  if (!datapost) {
+    redirect("/not-found");
+  }
 
   const slugsArrayrev = gettagpost?.blogs.map((item) => item.slug);
   const slugsArray = slugsArrayrev.reverse();
@@ -156,7 +176,7 @@ const BlogDetail = async ({ params }) => {
 
               <header className="py-8 ">
                 <h3 className="text-2xl font-bold font-serif">
-                  {datapost.title}
+                  {datapost?.title}
                 </h3>
 
                 <p className="text-m font-serif text-gray-700 text-wrap ">
@@ -169,7 +189,7 @@ const BlogDetail = async ({ params }) => {
                       📅 {datapost?.date}
                     </span>
                     <span className="text-sm text-gray-600 font-medium bg-gray-100 px-3 py-1 rounded-lg md:ml-4">
-                      ⏱ {datapost?.readingtime} min read
+                      ⏱ {datapost?.readingtime}
                     </span>
                   </div>
                 </div>
@@ -233,7 +253,7 @@ const BlogDetail = async ({ params }) => {
               {datapost?.fileurl && (
                 <section className="my-4">
                   <a
-                    className="inline-block border border-transparent rounded-md bg-slate-600 p-2 font-semibold text-white text-m hover:bg-slate-700 hover:shadow-lg transition-colors duration-300 ease-in-out"
+                    className="w-3/12 flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-blue-600 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                     href={datapost.fileurl}
                     target="_blank"
                   >

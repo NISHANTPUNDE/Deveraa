@@ -1,15 +1,16 @@
 import localFont from "next/font/local";
-import "./globals.css";
+import "../globals.css";
 import Topbar from "@/components/topbar";
 import AdSense from "@/components/AdSense";
 import { Toaster } from "@/components/ui/toaster"
+
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -23,7 +24,7 @@ export const metadata = {
     siteName: "learnwithdeveloper",
     url: "https://learnwithdeveloper.com",
     type: "website",
-    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
+    image: "https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png",
   },
   twitter: {
     handle: "@learnwithdeveloper",
@@ -37,7 +38,7 @@ export const metadata = {
     siteName: "learnwithdeveloper",
     title: "learnwithdeveloper",
     description: "A blog about learning and teaching",
-    image: `${process.env.NEXT_PUBLIC_BASE_URL}/_next/static/media/deveraa.31c8d42c.png`,
+    image: "https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png",
   },
 };
 
@@ -52,6 +53,10 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Deveraa" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta property="og:image" content="https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png" />
+        <meta property="og:image:type" content="png" />
+        <meta property="og:image:width" content="200" />
+        <meta property="og:image:height" content="200" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

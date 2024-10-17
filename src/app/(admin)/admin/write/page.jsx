@@ -9,11 +9,16 @@ const WriteBlog = () => {
   const [zipFile, setZipFile] = useState(null);
   const [contentBlocks, setContentBlocks] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [message, setMessage] = useState(""); // State for success/error message
-  const [isSuccess, setIsSuccess] = useState(false); // State for success flag
+  const [message, setMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "tag") {
+      setState({ ...state, [name]: value.toLowerCase() });
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
 
   const handleImgFileChange = (e) => {

@@ -8,8 +8,7 @@ import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 const DeleteBlog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [datapost, setDatapost] = useState({});
-  const [message, setMessage] = useState(""); // New state to show success or error messages
-
+  const [message, setMessage] = useState("");
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -40,7 +39,7 @@ const DeleteBlog = () => {
       );
 
       if (res.ok) {
-        setMessage("Post deleted successfully"); // Set success message
+        setMessage("Post deleted successfully");
         setDatapost({}); // Clear the post data
       } else {
         setMessage("Failed to delete post");
@@ -50,11 +49,10 @@ const DeleteBlog = () => {
     }
   };
 
-  // Optional useEffect to reset message after a few seconds
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage(""); // Clear message after 3 seconds
+        setMessage("");
       }, 3000);
       return () => clearTimeout(timer);
     }
@@ -68,7 +66,7 @@ const DeleteBlog = () => {
           <div className="flex gap-4">
             <input
               type="text"
-              placeholder="Search by slug"
+              placeholder="Search by Title or Slugs"
               value={searchTerm}
               onChange={handleSearchChange}
               className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900"
@@ -83,7 +81,7 @@ const DeleteBlog = () => {
 
           <div className="block w-full border border-b-indigo-900 mb-4"></div>
 
-          {message && ( // Conditionally render the success/error message
+          {message && (
             <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
               {message}
             </div>

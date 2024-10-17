@@ -11,6 +11,7 @@ export async function getPosts() {
 
         const data = await res.json();
         return data;
+
     } catch (error) {
         return { user: [] };
     }

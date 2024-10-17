@@ -168,10 +168,7 @@ const Topbar = () => {
                       key={index}
                       className="py-2 text-gray-800 border-b border-gray-300"
                     >
-                      <Link
-                        href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                        onClick={toggleMenu}
-                      >
+                      <Link href={`/tags/${tag}`} onClick={toggleMenu}>
                         {tag}
                       </Link>
                     </li>
@@ -203,7 +200,7 @@ const Topbar = () => {
                 tags.map((tag, index) => (
                   <Link
                     key={index}
-                    href={`/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/tags/${tag}`}
                     className="text-gray-700 text-nowrap hover:text-blue-500 font-semibold transition duration-300"
                   >
                     {tag.charAt(0).toUpperCase() + tag.slice(1)}

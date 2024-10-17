@@ -12,7 +12,10 @@ export async function PUT(req) {
         console.log(datapost.get('imgFile'));
         const data = JSON.parse(datapost.get('inputfields'));
         const slug = data.slug;
-        const existingPost = await Userpost.findOne({ slug });
+        const title = data.title;
+        const existingPost = await Userpost.findOne({
+            $or: [{ slug: slug }, { title: title }]
+        });
         if (!existingPost) {
             return NextResponse.json({ error: 'Post not found' }, { status: 404 });
         }

@@ -3,7 +3,7 @@ import RightAside from "@/components/RightAside";
 import { GiFlatStar } from "react-icons/gi";
 import Link from "next/link";
 import ContentImage from "@/components/ContentImage";
-import { getPosts } from "./data/apiPosts";
+import { getPosts } from "@/app/data/apiPosts";
 
 export const dynamic = "force-dynamic";
 

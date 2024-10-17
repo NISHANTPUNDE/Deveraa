@@ -1,21 +1,21 @@
 "use client";
-import { NEXT_PUBLIC_BASE_URL } from '@/app/lib/Constant';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from "react-cookie";
-
+import { Vortex } from 'react-loader-spinner';
 const Page = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [cookies, setCookie, removeCookie] = useCookies(['authtoken']);
+    const [loading, setLoading] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies();
     const router = useRouter();
 
 
     useEffect(() => {
         const checkAuthToken = async () => {
 
-            const authToken = cookies['authtoken'];
+            const authToken = cookies['authtoken']
             if (authToken) {
 
                 const response = await fetch(`/api/auth/checkauth`, {
@@ -27,7 +27,6 @@ const Page = () => {
                 });
 
                 const data = await response.json();
-                console.log("data", data)
 
                 if (response.ok) {
                     router.push('/admin/write');
@@ -45,6 +44,7 @@ const Page = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
         const response = await fetch(`/api/auth`, {
             method: 'POST',
@@ -57,7 +57,7 @@ const Page = () => {
         });
 
         const data = await response.json();
-        console.log("data", data)
+        setLoading(false);
 
         if (response.ok) {
 
@@ -78,6 +78,18 @@ const Page = () => {
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 {error && <div className="text-red-500 text-center">{error}</div>}
+                {loading &&
+                    <div className='flex items-center justify-center'>
+                        <Vortex
+                            visible={loading}
+                            height="80"
+                            width="80"
+                            ariaLabel="vortex-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="vortex-wrapper"
+                            colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                        />
+                    </div>}
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -97,11 +109,9 @@ const Page = () => {
                     </div>
 
                     <div>
-                        <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                                Password
-                            </label>
-                        </div>
+                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                            Password
+                        </label>
                         <div className="mt-2">
                             <input
                                 id="password"
@@ -118,9 +128,10 @@ const Page = () => {
                     <div>
                         <button
                             type="submit"
+                            disabled={loading}  // Disable button when loading
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Sign in
+                            {loading ? 'Signing in...' : 'Sign in'} {/* Show text based on loading state */}
                         </button>
                     </div>
                 </form>

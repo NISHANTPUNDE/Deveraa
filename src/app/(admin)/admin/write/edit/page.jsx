@@ -1,9 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
+import { useState } from "react";
 import AdminSidePanel from "@/components/AdminSidePanel";
-import { CloudCogIcon } from "lucide-react";
 import Image from "next/image";
 import { NEXT_PUBLIC_BASE_URL } from "@/app/lib/Constant";
 
@@ -27,7 +24,6 @@ const EditBlog = () => {
 
   async function getPosts() {
     try {
-      console.log(searchTerm);
       const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/post/${searchTerm}`);
       if (!res.ok) {
         throw new Error(`Failed to fetch: ${res.statusText}`);
@@ -54,8 +50,6 @@ const EditBlog = () => {
     updatedBlocks[index] = { ...updatedBlocks[index], [name]: value };
     setDatapost({ ...datapost, contentBlocks: updatedBlocks });
   };
-  console.log(zipFile);
-  console.log(imgFile);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,7 +58,6 @@ const EditBlog = () => {
     if (zipFile) data.append("zipFile", zipFile);
     data.append("inputfields", JSON.stringify(datapost));
     data.append("contentBlocks", JSON.stringify(datapost.contentBlocks));
-    console.log(data);
 
     const result = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/write/edit`, {
       method: "PUT",
@@ -87,7 +80,7 @@ const EditBlog = () => {
           <div className="flex gap-4">
             <input
               type="text"
-              placeholder="Search by slug"
+              placeholder="Search by Title or Slugs"
               value={searchTerm}
               onChange={handleSearchChange}
               className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900"

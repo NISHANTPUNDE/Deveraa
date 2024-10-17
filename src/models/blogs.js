@@ -57,6 +57,6 @@ const UserSchema = new Schema(
     { timestamps: true }
 );
 
-const Userpost = mongoose.models.Users || mongoose.model('Users', UserSchema);
+const Userpost = mongoose.models.posts || mongoose.model('posts', UserSchema);
 
 export default Userpost;

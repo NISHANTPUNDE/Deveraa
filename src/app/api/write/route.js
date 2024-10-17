@@ -5,6 +5,7 @@ import Userpost from '@/models/blogs';
 
 import { exec } from 'child_process';
 
+export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
     try {
