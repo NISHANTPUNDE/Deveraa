@@ -92,6 +92,7 @@ const WriteBlog = () => {
               placeholder="Title"
               name="title"
               onChange={handleChange}
+	      maxLength={50}
               className="peer h-12 w-full resize-none bg-transparent pt-2 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-2xl pl-2 mb-4 border-b-2 border-gray-300 focus:border-gray-900"
               required
             ></textarea>
@@ -99,8 +100,8 @@ const WriteBlog = () => {
               placeholder="Description"
               name="description"
               onChange={handleChange}
-              rows={2}
-              className="peer h-24 w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
+              rows={8}
+              className="peer  w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
               required
             ></textarea>
 
@@ -121,7 +122,7 @@ const WriteBlog = () => {
                       name="content"
                       value={block.content}
                       onChange={(e) => handleContentChange(e, index)}
-                      rows={4}
+                      rows={8}
                       className="peer w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
                     ></textarea>
                   </>
@@ -133,7 +134,7 @@ const WriteBlog = () => {
                     name="code"
                     value={block.code}
                     onChange={(e) => handleContentChange(e, index)}
-                    rows={3}
+                    rows={8}
                     className="peer w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
                   ></textarea>
                 )}
@@ -145,7 +146,6 @@ const WriteBlog = () => {
                     id="file_input"
                     type="file"
                     onChange={(e) => handleImgFileChange(e, index)}
-                    required
                   />
                 )}
 

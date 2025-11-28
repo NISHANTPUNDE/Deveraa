@@ -1,6 +1,6 @@
 import Userpost from "@/models/blogs";
 import { NEXT_PUBLIC_BASE_URL } from '@/lib/Constant';
-
+export const dynamic = "force-dynamic";
 export default async function sitemap() {
     const data = await Userpost.find({});
     const post = data.map((post) => ({

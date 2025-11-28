@@ -66,6 +66,16 @@ const EditBlog = () => {
 
     if (result.ok) {
       alert("Blog post submitted successfully.");
+      setDatapost({
+        title: "",
+        description: "",
+        contentBlocks: [],
+        tag: "",
+        slug: "",
+        videourl: "",
+        readingtime: "",
+      });
+      setSearchTerm("")
     } else {
       const errorData = await result.json();
       alert(`Failed to submit blog post: ${errorData.message}`);
@@ -112,7 +122,7 @@ const EditBlog = () => {
                 name="description"
                 value={datapost?.description}
                 onChange={handleChange}
-                rows={2}
+                rows={6}
                 className="peer h-24 w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
                 required
               ></textarea>
@@ -137,7 +147,7 @@ const EditBlog = () => {
                         name="content"
                         value={item?.content}
                         onChange={(e) => handleContentBlockChange(e, index)}
-                        rows={4}
+                        rows={8}
                         className="peer w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
                       ></textarea>
                     </div>
@@ -154,7 +164,7 @@ const EditBlog = () => {
                         name="code"
                         value={item?.code}
                         onChange={(e) => handleContentBlockChange(e, index)}
-                        rows={6}
+                        rows={8}
                         className="peer w-full resize-none bg-transparent pt-4 font-sans font-normal text-blue-gray-700 outline-none transition-all placeholder:text-gray-500 text-lg pl-2 mb-4 border border-gray-300 rounded-md focus:border-gray-900"
                       ></textarea>
                     </div>

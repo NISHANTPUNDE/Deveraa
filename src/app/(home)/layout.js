@@ -17,28 +17,31 @@ const geistMono = localFont({
 
 export const metadata = {
   title: {
-    default: "learnwithdeveloper"
+    default: "Deveraa"
   },
   description: "A blog about learning and teaching",
+  manifest: "/manifest.json",
+  keywords: ["json viewer", "technology", "web application"],
+  viewport: "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
   facebook: {
-    siteName: "learnwithdeveloper",
-    url: "https://learnwithdeveloper.com",
+    siteName: "Deveraa",
+    url: "https://blog.deveraa.com",
     type: "website",
-    image: "https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png",
+    image: "https://blog.deveraa.com/_next/static/media/deveraa.31c8d42c.png",
   },
   twitter: {
-    handle: "@learnwithdeveloper",
-    site: "@learnwithdeveloper",
+    handle: "@Deveraa",
+    site: "@Deveraa",
     cardType: "summary_large_image",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://learnwithdeveloper.com",
-    siteName: "learnwithdeveloper",
-    title: "learnwithdeveloper",
+    url: "https://blog.deveraa.com",
+    siteName: "Deveraa",
+    title: "Deveraa",
     description: "A blog about learning and teaching",
-    image: "https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png",
+    image: "https://blog.deveraa.com/_next/static/media/deveraa.31c8d42c.png",
   },
 };
 
@@ -52,16 +55,17 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Deveraa" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <meta property="og:image" content="https://learnwithdevelopers.me/_next/static/media/deveraa.31c8d42c.png" />
+	<meta name="google-adsense-account" content="ca-pub-4558399330681578" />
+        <meta property="og:image" content="https://blog.deveraa.com/_next/static/media/deveraa.31c8d42c.png" />
         <meta property="og:image:type" content="png" />
         <meta property="og:image:width" content="200" />
         <meta property="og:image:height" content="200" />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="mb-20">
+        <div >
           <Topbar />
         </div>
         {children}

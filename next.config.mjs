@@ -1,7 +1,8 @@
+import nextPWA from 'next-pwa';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', '127.0.0.1', 'images.pexels.com', 'upload.wikimedia.org', 'learnwithdevelopers.me'],
+        domains: ['images.pexels.com', 'upload.wikimedia.org', 'deveraa.com','blog.deveraa.com'],
         unoptimized: true,
     },
     eslint: {
@@ -23,4 +24,7 @@ const nextConfig = {
     }
 };
 
-export default nextConfig;
+export default nextPWA({
+    dest: 'public'
+})(nextConfig);
+

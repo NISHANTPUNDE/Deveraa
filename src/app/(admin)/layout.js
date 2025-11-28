@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import AdminTopbar from "@/components/AdminTopbar";
 
 export const metadata = {
-    title: "Admin Panel - learnwithdeveloper",
+    title: "Admin Panel - Deveraa",
     description: "Admin panel for managing the blog",
 };
 

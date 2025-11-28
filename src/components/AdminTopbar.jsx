@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/assets/deveraa.png";
+import logo from "@/assets/deveraa.jpg";
 import Image from "next/image";
 
 const AdminTopbar = () => {

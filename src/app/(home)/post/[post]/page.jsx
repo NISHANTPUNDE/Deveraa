@@ -94,7 +94,8 @@ const BlogDetail = async ({ params }) => {
   }
 
   const slugsArrayrev = gettagpost?.blogs.map((item) => item.slug);
-  const slugsArray = slugsArrayrev.reverse();
+
+  const slugsArray = slugsArrayrev;
 
   const currentSlugIndex = slugsArray.findIndex(
     (slug) => slug === datapost.slug
@@ -113,12 +114,12 @@ const BlogDetail = async ({ params }) => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-[80px]">
+    <div className="min-h-screen bg-gray-100 ">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:p-4">
         <LeftAside
           dataAdFormat="auto"
           dataFullWidthResponsive={true}
-          data-ad-slot="4816179228"
+          data-ad-slot="8361989217"
         />
 
         <main className="bg-white p-4 md:col-span-2 shadow-md rounded-2xl">
@@ -309,7 +310,11 @@ const BlogDetail = async ({ params }) => {
           </article>
         </main>
         <div className="hidden md:block">
-          <RightAside />
+          <RightAside
+            dataAdFormat="auto"
+            dataFullWidthResponsive={true}
+            data-ad-slot="1768660701"
+          />
         </div>
       </div>
     </div>

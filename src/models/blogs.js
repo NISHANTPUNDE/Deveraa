@@ -39,7 +39,7 @@ const UserSchema = new Schema(
         author: String,
         image: {
             type: String,
-            required: true,
+            
         },
         fileurl: String,
         videourl: String,
